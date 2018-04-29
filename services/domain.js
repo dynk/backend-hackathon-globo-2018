@@ -1,21 +1,22 @@
 function get(){
     const domains = {
         oficial: [
-            'routers.com',
-            'twitter.com/RCMPAlberta'
+            '.routers.',
+            '.twitter.'
         ],
-        trusted: [
-            'google.com',
-            'cnn.com',
-            'yahoo.com',
-            'nbc.com',
-            'fox.com',
-            'bbc.com'
+        verified: [
+            '.brasil247.',
+            '.google.',
+            '.cnn.',
+            '.yahoo.',
+            '.nbc.',
+            '.fox.',
+            '.bbc.'
         ],
         blacklisted: [
-            'snopes.com',
-            'lifehacker.com',
-            'gizmodo.com'
+            '.snopes.',
+            '.lifehacker.',
+            '.gizmodo.'
         ]
     }
     return Promise.resolve(domains);
