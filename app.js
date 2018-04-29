@@ -17,8 +17,6 @@ app.use(bodyParser.json());
 app.use(`/`, require('./routes'));
 
 app.listen(process.env.PORT || LOCAL_PORT, () => {
-
-    console.log("jere");
   logger.debug(`Listening on port ${LOCAL_PORT}`);
 });
 

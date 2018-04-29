@@ -13,6 +13,7 @@
   "dependencies": {
     "node-g-search": "pamepeixinho/node-g-search#0.0.3",
     "express": "4.16.2",
+    "express-fileupload": "0.3.0",
     "cors": "2.8.3",
     "winston": "2.4.0",
     "body-parser": "1.18.2",

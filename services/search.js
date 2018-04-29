@@ -1,6 +1,16 @@
 var g = require('node-g-search');
 const moment = require('moment');
-moment.locale('pt-BR');
+const TinEye = require('tineye-api');
+const publicKey = 'LCkn,2K7osVwkX95K4Oy';
+const privateKey = '6mm60lsCNIB,FwOWjJqA80QZHh9BMwc-ber4u=t^';
+const tinEye = new TinEye('https://api.tineye.com/rest/', publicKey, privateKey);
+const urlTemer = 'https://i2.wp.com/jornaldachapada.com.br/wp-content/uploads/2017/06/Temer-indica-Raquel-Dodge-para-substituir-Janot-na-chefia-da-PGR.jpg';
+const params = {
+    'offset': 0,
+    'limit': 10,
+    'sort': 'crawl_date',
+    'order': 'desc'
+  };
 
 function search(req = {}) {
     
@@ -12,6 +22,38 @@ function search(req = {}) {
     return g.search(query)
         .then((d) => d.data.map(handleData));
 }
+
+function searchImage(req = {}){
+    const { body = {}} = req;
+    const { url } = body;
+    const { files } = req;
+    const { dataFile } = files;
+    const imageData = dataFile.data;
+    if(url){
+        return tinEye.searchUrl(url, params);
+    } 
+    if(imageData){
+        return tinEye.searchData(imageData, params)
+            .then(parseImageDataResult);
+    }
+    return;
+}
+
+function parseImageDataResult(imageResults){
+    return imageResults.results.matches.map((m) => {
+        return m.backlinks.map((backlink) => {
+            backlink.domain = m.domain;
+            backlink.score = m.score;
+            backlink.date = moment(backlink.crawl_date,"YYYY-MM-DD").format();
+            delete backlink.crawl_date;
+            return backlink;
+        });
+    });
+}
+
+
+
+
 
 function handleData(data) {
     const mapMonth = {
@@ -65,5 +107,6 @@ function handleData(data) {
 
 
 module.exports = {
-    search
+    search,
+    searchImage
 }
