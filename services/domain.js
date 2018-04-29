@@ -17,7 +17,9 @@ function get(){
             'veja.abril',
             'exame.abril',
             'otempo.',
-            'uol.'
+            'uol.',
+            'kaskus.',
+            'liveinternet.'
         ],
         blacklisted: [
             '.snopes.',

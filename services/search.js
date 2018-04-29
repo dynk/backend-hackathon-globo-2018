@@ -54,6 +54,24 @@ function searchImage(req = {}){
     return;
 }
 
+function searchImageByDomain(req = {}){
+    const { body = {}} = req;
+    const { url } = body;
+    const { files } = req;
+    const { dataFile } = files;
+    const imageData = dataFile.data;
+    if(url){
+        return tinEye.searchUrl(url, params);
+    } 
+    if(imageData){
+        return tinEye.searchData(imageData, params)
+            .then(parseImageDataResult)
+            .then(splitByDomain)
+            .then((resultSplited) => filter(req,resultSplited));
+    }
+    return;
+}
+
 function parseImageDataResult(imageResults){
     return imageResults.results.matches.map((m) => {
         return m.backlinks.map((backlink) => {
@@ -117,6 +135,21 @@ function filter(req = {}, results){
             }
         }
     }
+    if(endDate){
+        endDate = moment(endDate);
+        for(let i = 0; i < results.official.length; i++){
+            if(endDate.diff(results.official[i].date) > 0){
+                let removed = results.official.splice(i,1);
+                results.filtered.push(removed);
+            }
+        }
+        for(let i = 0; i < results.verified.length; i++){
+            if(endDate.diff(results.verified[i].date) > 0){
+                let removed = results.verified.splice(i,1);
+                results.filtered.push(removed);
+            }
+        }
+    }
     return results;
 }
 
@@ -175,5 +208,6 @@ function handleData(data) {
 module.exports = {
     search,
     searchByDomain,
-    searchImage
+    searchImage,
+    searchImageByDomain
 }

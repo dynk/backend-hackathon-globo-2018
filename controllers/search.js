@@ -18,8 +18,15 @@ function searchImage(req, res){
     }); 
 }
 
+function searchImageByDomain(req, res){
+    return service.searchImageByDomain(req).then((result) => {
+        return res.json(result);
+    }); 
+}
+
 module.exports = {
     search,
     searchByDomain,
-    searchImage
+    searchImage,
+    searchImageByDomain
 }

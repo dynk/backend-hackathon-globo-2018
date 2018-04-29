@@ -11,6 +11,7 @@ router.post('/search', searchCtrl.search);
 router.post('/search/by-domain', searchCtrl.searchByDomain);
 router.get('/domain', domainCtrl.get);
 router.post('/search/image', fileUpload(),searchCtrl.searchImage);
+router.post('/search/image/by-domain', fileUpload(),searchCtrl.searchImageByDomain);
 
 
 function info(req, res) {
