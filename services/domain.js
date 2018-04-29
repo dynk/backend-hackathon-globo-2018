@@ -4,6 +4,7 @@ function get(){
             '.snopes.',
             '.lifehacker.',
             '.gizmodo.',
+            'oantagonista.',
             'forum.',
             'blog.'
         ],
@@ -19,7 +20,6 @@ function get(){
             '.fox.',
             '.bbc.',
             'globo.',
-            'oantagonista.',
             'veja.abril',
             'exame.abril',
             'otempo.',
