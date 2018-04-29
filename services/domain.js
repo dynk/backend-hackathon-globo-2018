@@ -1,11 +1,21 @@
 function get(){
     const domains = {
-        verified: [
-            '.esmaelmorais.',
-            '.brasil247.'
+        oficial: [
+            'routers.com',
+            'twitter.com/RCMPAlberta'
         ],
-        blacklist: [
-            '.alljazeera.'
+        trusted: [
+            'google.com',
+            'cnn.com',
+            'yahoo.com',
+            'nbc.com',
+            'fox.com',
+            'bbc.com'
+        ],
+        blacklisted: [
+            'snopes.com',
+            'lifehacker.com',
+            'gizmodo.com'
         ]
     }
     return Promise.resolve(domains);
