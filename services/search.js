@@ -78,6 +78,8 @@ function parseImageDataResult(imageResults){
             backlink.domain = m.domain;
             backlink.score = m.score;
             backlink.date = moment(backlink.crawl_date,"YYYY-MM-DD").format();
+            backlink.href = backlink.url;
+            backlink.domainLabel = backlink.backlink.substring(0,30)+'...';
             delete backlink.crawl_date;
             return backlink;
         });
