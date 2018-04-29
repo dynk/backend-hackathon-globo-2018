@@ -21,7 +21,8 @@ function search(req = {}) {
         return;
     }
     return g.search(query)
-        .then((d) => d.data.map(handleData));
+        .then((d) => {
+            return d.data.map(handleData);});
 }
 
 function searchByDomain(req = {}) {
@@ -141,6 +142,7 @@ function handleData(data) {
     }
     data.date = date;
     data.domain = data.href;
+    data.domainLabel = data.href.substring(0,30)+'...';
     return data;
 
     
