@@ -6,6 +6,12 @@ function search(req, res){
     }); 
 }
 
+function searchByDomain(req, res){
+    return service.searchByDomain(req).then((result) => {
+        return res.json(result);
+    }); 
+}
+
 function searchImage(req, res){
     return service.searchImage(req).then((result) => {
         return res.json(result);
@@ -14,5 +20,6 @@ function searchImage(req, res){
 
 module.exports = {
     search,
+    searchByDomain,
     searchImage
 }

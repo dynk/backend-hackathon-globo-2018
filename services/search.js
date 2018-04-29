@@ -11,6 +11,7 @@ const params = {
     'sort': 'crawl_date',
     'order': 'desc'
   };
+const serviceDomain = require('./domain');
 
 function search(req = {}) {
     
@@ -22,6 +23,19 @@ function search(req = {}) {
     return g.search(query)
         .then((d) => d.data.map(handleData));
 }
+
+function searchByDomain(req = {}) {
+    
+    const { body = {} } = req;
+    const {query } = body;
+    if(!query){
+        return;
+    }
+    return g.search(query)
+        .then((d) => d.data.map(handleData))
+        .then(splitByDomain);
+}
+
 
 function searchImage(req = {}){
     const { body = {}} = req;
@@ -52,6 +66,37 @@ function parseImageDataResult(imageResults){
         return acc.concat(cur);
     },[]);
 }
+
+function splitByDomain(matches){
+    return serviceDomain.get()
+        .then((domains) => {
+            const domainTypes = Object.keys(domains);
+            const result = {};
+            for(let dt of domainTypes){
+                result[dt] = [];
+            }
+            result['nonVerified'] = [];
+            for(let m of matches){
+                let type;
+                for(let dt of domainTypes){
+                    for(let d of domains[dt]){
+                        if(m.domain.indexOf(d) > -1){
+                            type = dt;
+                        }
+                    }
+                }
+                if(type){
+                    result[type].push(m);
+                }else{
+                    result['nonVerified'].push(m);
+                }
+            }
+            return result;
+            
+        });
+
+}
+
 
 function handleData(data) {
     const mapMonth = {
@@ -94,7 +139,8 @@ function handleData(data) {
     }else {
         date = moment().format();
     }
-    data.date = date
+    data.date = date;
+    data.domain = data.href;
     return data;
 
     
@@ -106,5 +152,6 @@ function handleData(data) {
 
 module.exports = {
     search,
+    searchByDomain,
     searchImage
 }
