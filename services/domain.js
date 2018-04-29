@@ -1,17 +1,23 @@
 function get(){
     const domains = {
-        oficial: [
-            '.routers.',
-            '.twitter.'
+        official: [
+            'routers.',
+            'twitter.'
         ],
         verified: [
-            '.brasil247.',
-            '.google.',
+            'brasil247.',
+            'google.',
             '.cnn.',
-            '.yahoo.',
+            'yahoo.',
             '.nbc.',
             '.fox.',
-            '.bbc.'
+            '.bbc.',
+            'globo.',
+            'oantagonista.',
+            'veja.abril',
+            'exame.abril',
+            'otempo.',
+            'uol.'
         ],
         blacklisted: [
             '.snopes.',

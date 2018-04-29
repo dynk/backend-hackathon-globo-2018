@@ -21,8 +21,7 @@ function search(req = {}) {
         return;
     }
     return g.search(query)
-        .then((d) => {
-            return d.data.map(handleData);});
+        .then((d) =>  d.data.map(handleData));
 }
 
 function searchByDomain(req = {}) {
@@ -34,7 +33,8 @@ function searchByDomain(req = {}) {
     }
     return g.search(query)
         .then((d) => d.data.map(handleData))
-        .then(splitByDomain);
+        .then(splitByDomain)
+        .then((resultSplited) => filter(req,resultSplited));
 }
 
 
@@ -98,6 +98,27 @@ function splitByDomain(matches){
 
 }
 
+function filter(req = {}, results){
+    let { body } = req;
+    let { startDate, endDate } = body;
+    results.filtered = [];
+    if(startDate){
+        startDate = moment(startDate);
+        for(let i = 0; i < results.official.length; i++){
+            if(startDate.diff(results.official[i].date) < 0){
+                let removed = results.official.splice(i,1);
+                results.filtered.push(removed);
+            }
+        }
+        for(let i = 0; i < results.verified.length; i++){
+            if(startDate.diff(results.verified[i].date) < 0){
+                let removed = results.verified.splice(i,1);
+                results.filtered.push(removed);
+            }
+        }
+    }
+    return results;
+}
 
 function handleData(data) {
     const mapMonth = {
@@ -145,7 +166,6 @@ function handleData(data) {
     data.domainLabel = data.href.substring(0,30)+'...';
     return data;
 
-    
 }
 
 
