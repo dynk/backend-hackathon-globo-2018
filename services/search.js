@@ -48,7 +48,7 @@ function handleData(data) {
     }else if(/,/.test(date) ){
         date = date.replace(", ", ",").replace(" ", ",");
         let dateArr = date.split(",");
-        let month = mapMonth[dateArr[0]].toLowerCase();
+        let month = mapMonth[dateArr[0].toLowerCase()];
         let parsedDate = `${month}-${dateArr[1]}-${dateArr[2]}`;
         date = moment(parsedDate, "MM-DD-YYYY").format();
     }else {
