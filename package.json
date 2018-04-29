@@ -1,0 +1,15 @@
+{
+  "name": "apura-news-img-date",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },  
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-g-search": "pamepeixinho/node-g-search#0.0.1",
+    "tineye-api": "^1.0.2"
+  }
+}
