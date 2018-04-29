@@ -6,7 +6,8 @@ function get(){
             '.gizmodo.',
             'oantagonista.',
             'forum.',
-            'blog.'
+            'blog.',
+            'yahoo.'
         ],
         official: [
             'routers.',
@@ -15,7 +16,6 @@ function get(){
         verified: [
             'google.',
             '.cnn.',
-            'yahoo.',
             '.nbc.',
             '.fox.',
             '.bbc.',
