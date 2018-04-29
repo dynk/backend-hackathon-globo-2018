@@ -6,8 +6,8 @@ const privateKey = '6mm60lsCNIB,FwOWjJqA80QZHh9BMwc-ber4u=t^';
 const tinEye = new TinEye('https://api.tineye.com/rest/', publicKey, privateKey);
 const urlTemer = 'https://i2.wp.com/jornaldachapada.com.br/wp-content/uploads/2017/06/Temer-indica-Raquel-Dodge-para-substituir-Janot-na-chefia-da-PGR.jpg';
 const params = {
-    'offset': 0,
-    'limit': 10,
+    // 'offset': 0,
+    // 'limit': 10,
     'sort': 'crawl_date',
     'order': 'desc'
   };
@@ -48,12 +48,10 @@ function parseImageDataResult(imageResults){
             delete backlink.crawl_date;
             return backlink;
         });
-    });
+    }).reduce((acc, cur)=>{
+        return acc.concat(cur);
+    },[]);
 }
-
-
-
-
 
 function handleData(data) {
     const mapMonth = {
