@@ -1,11 +1,17 @@
 function get(){
     const domains = {
+        blacklisted: [
+            '.snopes.',
+            '.lifehacker.',
+            '.gizmodo.',
+            'forum.',
+            'blog.'
+        ],
         official: [
             'routers.',
             'twitter.'
         ],
         verified: [
-            'brasil247.',
             'google.',
             '.cnn.',
             'yahoo.',
@@ -20,12 +26,7 @@ function get(){
             'uol.',
             'kaskus.',
             'liveinternet.'
-        ],
-        blacklisted: [
-            '.snopes.',
-            '.lifehacker.',
-            '.gizmodo.'
-        ]
+        ]  
     }
     return Promise.resolve(domains);
 }

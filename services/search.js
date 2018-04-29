@@ -1,3 +1,4 @@
+const _ = require('lodash');
 var g = require('node-g-search');
 const moment = require('moment');
 const TinEye = require('tineye-api');
@@ -33,6 +34,7 @@ function searchByDomain(req = {}) {
     }
     return g.search(query)
         .then((d) => d.data.map(handleData))
+        .then(sort)
         .then(splitByDomain)
         .then((resultSplited) => filter(req,resultSplited));
 }
@@ -64,8 +66,9 @@ function searchImageByDomain(req = {}){
         return tinEye.searchUrl(url, params);
     } 
     if(imageData){
-        return tinEye.searchData(imageData, params)
+        return tinEye.searchData(imageData, {})
             .then(parseImageDataResult)
+            .then(sort)
             .then(splitByDomain)
             .then((resultSplited) => filter(req,resultSplited));
     }
@@ -153,6 +156,10 @@ function filter(req = {}, results){
         }
     }
     return results;
+}
+
+function sort(matches){
+   return _.orderBy(matches,['date'],['desc']);
 }
 
 function handleData(data) {
