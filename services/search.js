@@ -17,13 +17,18 @@ function handleData(data) {
     const mapMonth = {
         'jan': '01',
         'fev': '02',
+        'feb': '02',
         'mar': '03',
         'abr': '04',
+        'apr': '04',
         'mai': '05',
+        'may': '05',
         'jun': '06',
         'jul': '07',
         'ago': '08',
+        'aug': '08',
         'set': '09',
+        'sep': '09',
         'out': '10',
         'nov': '11',
         'dez': '12',
@@ -32,16 +37,22 @@ function handleData(data) {
     date = data.date.replace(" - ", "");
     if(/hora/.test(date) || /hour/.test(date) ){
         date = moment().format();
-    }
-    if(/day/.test(date) || /dia/.test(date) ){
+    }else if(/day/.test(date) || /dia/.test(date) ){
         let day = parseInt(date.charAt(0));
         date = moment().subtract(day, 'day').format();
-    }
-    if(/de/.test(date) ){
+    }else if(/de/.test(date) ){
         let dateArr = date.split(" de ");
         let month = mapMonth[dateArr[1]];
         let parsedDate = `${month}-${dateArr[0]}-${dateArr[2]}`;
         date = moment(parsedDate, "MM-DD-YYYY").format();
+    }else if(/,/.test(date) ){
+        date = date.replace(", ", ",").replace(" ", ",");
+        let dateArr = date.split(",");
+        let month = mapMonth[dateArr[0]];
+        let parsedDate = `${month}-${dateArr[1]}-${dateArr[2]}`;
+        date = moment(parsedDate, "MM-DD-YYYY").format();
+    }else {
+        date = moment().format();
     }
     data.date = date
     return data;
